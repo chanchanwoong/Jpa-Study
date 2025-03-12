@@ -1,6 +1,6 @@
-package jpabook.start.eneity;
+package jpabook.start.ch04.eneity;
 
-import jpabook.start.data.OrderStatus;
+import jpabook.start.ch04.data.OrderStatus;
 
 import javax.persistence.*;
 import java.util.*;

@@ -1,4 +1,4 @@
-package jpabook.start.eneity;
+package jpabook.start.ch04.eneity;
 
 import javax.persistence.*;
 
