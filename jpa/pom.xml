@@ -16,9 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- JPA, 하이버네이트 버전 -->
-        <hibernate.version>4.3.10.Final</hibernate.version>
-        <!-- 데이터베이스 버전 -->
-        <h2db.version>2.3.232</h2db.version>
+        <hibernate.version>5.6.15.Final</hibernate.version>
 
     </properties>
 
@@ -30,11 +28,12 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-        <!-- H2 데이터베이스 -->
+
+        <!-- MySQL Connector -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2db.version}</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- 최신 버전 확인 후 변경 가능 -->
         </dependency>
     </dependencies>
 
