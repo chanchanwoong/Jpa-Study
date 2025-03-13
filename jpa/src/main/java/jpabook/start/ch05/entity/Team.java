@@ -1,8 +1,14 @@
 package jpabook.start.ch05.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class Team {
 
+    @Id
+    @Column(name = "team_id")
     private String id;
+
     private String name;
 
     public Team(String id, String name) {
