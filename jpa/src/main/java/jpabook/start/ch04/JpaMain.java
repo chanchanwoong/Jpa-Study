@@ -1,6 +1,6 @@
 package jpabook.start.ch04;
 
-import jpabook.start.ch04.eneity.Member;
+import jpabook.start.ch04.entity.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
