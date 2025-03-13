@@ -3,10 +3,8 @@ package jpabook.start.ch05;
 import jpabook.start.ch05.entity.Member;
 import jpabook.start.ch05.entity.Team;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.*;
 
 public class JpaMain {
 
@@ -17,13 +15,16 @@ public class JpaMain {
 
         try {
             tx.begin();
-            logic(em);
+//            logic(em);
 
             // 객체 그래프 탐색을 통한 객체 접근
-            objectGraphSearch(em, "member1");
+//            objectGraphSearch(em, "member1");
 
             // team 갱신
-            updateRelation(em);
+//            updateRelation(em);
+
+            // 양방향 객체 그래프 탐색
+            biDirection(em);
 
             tx.commit();
         } catch (Exception e) {
@@ -68,5 +69,29 @@ public class JpaMain {
         member.setTeam(team2);
 
         System.out.println("갱신 후 member2 = " + em.find(Member.class, "member1").getTeam().getName());
+    }
+
+    private static void biDirection(EntityManager em) {
+        Team team1 = new Team("team1", "팀1");
+
+        Member member1 = new Member("member1", "회원1");
+        Member member2 = new Member("member2", "회원2");
+        member1.setTeam(team1);
+        member2.setTeam(team1);
+
+        List<Member> members = Arrays.asList(member1, member2);
+        team1.setMembers(members);
+
+        em.persist(team1);
+
+        Team team = em.find(Team.class, "team1");
+        List<Member> membersByBiDirection = team.getMembers();
+
+        System.out.println("양방향 연관관계를 통해 TEAM에서 MEMBER 접근");
+        System.out.println(membersByBiDirection.toString());
+
+        for (Member member : membersByBiDirection) {
+            System.out.println("member.username = " + member.getUsername());
+        }
     }
 }
