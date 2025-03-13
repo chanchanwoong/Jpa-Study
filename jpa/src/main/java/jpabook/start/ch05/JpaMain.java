@@ -21,6 +21,10 @@ public class JpaMain {
 
             // 객체 그래프 탐색을 통한 객체 접근
             objectGraphSearch(em, "member1");
+
+            // team 갱신
+            updateRelation(em);
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,5 +55,18 @@ public class JpaMain {
     private static void objectGraphSearch(EntityManager em, String memberId) {
         Member member = em.find(Member.class, memberId);
         System.out.println("member1의 팀 이름 = " + member.getTeam().getName());
+    }
+
+    private static void updateRelation(EntityManager em) {
+        Team team2 = new Team("team2", "팀2");
+        em.persist(team2);
+
+        Member member = em.find(Member.class, "member1");
+        System.out.println("갱신 전 member1 = " + member.getTeam().getName());
+
+        // member1의 팀을 team2로 갱신
+        member.setTeam(team2);
+
+        System.out.println("갱신 후 member2 = " + em.find(Member.class, "member1").getTeam().getName());
     }
 }
