@@ -24,7 +24,10 @@ public class JpaMain {
 //            updateRelation(em);
 
             // 양방향 객체 그래프 탐색
-            biDirection(em);
+//            biDirection(em);
+
+            // 주인을 지정한 양방향 연관관계 저장
+            testSave(em);
 
             tx.commit();
         } catch (Exception e) {
@@ -93,5 +96,39 @@ public class JpaMain {
         for (Member member : membersByBiDirection) {
             System.out.println("member.username = " + member.getUsername());
         }
+    }
+
+
+    /*
+        연관관계의 주인을 설정하면, 따로 Team 객체의 Member 필드를 추가해주지 않아도 자동으로 명시된다.
+    */
+    private static void testSave(EntityManager em) {
+        // 연관관계의 주인을 사용하지 못해 외래키 값이 NULL로 들어가는 코드
+        Member member1 = new Member("member1", "회원1");
+        em.persist(member1);
+
+        Member member2 = new Member("member2", "회원2");
+        em.persist(member2);
+
+        Team team1 = new Team("team1", "팀1");
+        team1.getMembers().add(member1);
+        team1.getMembers().add(member2);
+        em.persist(team1);
+
+
+
+        // 연관관계의 주인을 통한 자동 외래키 지정 코드
+        Team team2 = new Team("team2", "팀2");
+        em.persist(team2);
+
+        Member member3 = new Member("member3", "회원3");
+        member3.setTeam(team2);
+        em.persist(member3);
+
+        Member member4 = new Member("member4", "회원4");
+        member4.setTeam(team2);
+        em.persist(member4);
+
+
     }
 }
